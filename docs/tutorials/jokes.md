@@ -2967,19 +2967,21 @@ export async function createUserSession(
 
 <summary>app/routes/login.tsx</summary>
 
-```tsx filename=app/routes/login.tsx nocopy
-// ...
-case "login": {
-  const user = await login({ username, password });
-  if (!user) {
-    return {
-      fields,
-      formError: `Username/Password combination is incorrect`
-    };
-  }
-  return createUserSession(user.id, redirectTo);
-}
-// ...
+```tsx filename=app/routes/login.tsx lines=[12] nocopy
+    // ...
+    case "login": {
+      const user = await login({ username, password });
+      console.log({ user });
+      if (!user) {
+        return badRequest({
+          fields,
+          formError: `Username/Password combination is incorrect`
+        });
+      }
+      // if there is a user, create their session and redirect to /jokes
+      return createUserSession(user.id, redirectTo);
+    }
+    // ...
 ```
 
 </details>
