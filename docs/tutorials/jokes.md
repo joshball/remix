@@ -2967,7 +2967,12 @@ export async function createUserSession(
 
 <summary>app/routes/login.tsx</summary>
 
-```tsx filename=app/routes/login.tsx lines=[12] nocopy
+```tsx filename=app/routes/login.tsx lines=[4,17] nocopy
+import type { ActionFunction, LinksFunction } from "remix";
+import { useActionData, json, Link } from "remix";
+import { db } from "~/utils/db.server";
+import { createUserSession, login } from '~/utils/session.server';
+import stylesUrl from "../styles/login.css";
     // ...
     case "login": {
       const user = await login({ username, password });
